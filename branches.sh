@@ -1,5 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
-BRANCHES=$(git branch)
+branches=`git branch --list`
 
-printf "branches $BRANCHES\n"
+while read -r line; do
+    echo "$line"
+    description=`git config branch.$line.description`
+done <<< "$branches"
+
