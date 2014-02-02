@@ -20,6 +20,25 @@ with their descriptions at once, for example, I have two branches
 This is same information as `git branch`, with descriptions in the
 second column.
 
+## Adding to .bash_profile
+
+I found it convenient to add this feature as a function to me `.bash_profile`
+or `.alias` file
+
+    # .bash_profile
+    # list git branches with their descriptions
+    function branches() {
+        branch=""
+        branches=`git branch --list`
+        while read -r branch; do
+        clean_branch_name=${branch//\*\ /}
+        description=`git config branch.$clean_branch_name.description`
+        printf "%-15s %s\n" "$branch" "$description"
+        done <<< "$branches"
+    }
+
+Then anywhere in the shell I can use command `branches`
+
 ### Small print
 
 Author: Gleb Bahmutov &copy; 2014
