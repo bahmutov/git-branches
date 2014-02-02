@@ -22,7 +22,7 @@ second column.
 
 ## Adding to .bash_profile
 
-I found it convenient to add this feature as a function to me `.bash_profile`
+I found it convenient to add this feature as a function to my `.bash_profile`
 or `.alias` file
 
     # .bash_profile
