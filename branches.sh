@@ -21,3 +21,7 @@ while read -r branch; do
   printf "%-15s %s\n" "$branch" "$description"
 done <<< "$branches"
 
+# example output
+# $ ./branches.sh
+# * master        this is master branch
+# one             this is simple branch for testing
