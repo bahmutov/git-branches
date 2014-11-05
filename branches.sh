@@ -2,6 +2,10 @@
 
 branch=""
 branches=`git branch --list`
+#color codes
+ESC_SEQ="\x1b["
+COL_RESET=$ESC_SEQ"39;49;00m"
+COL_RED=$ESC_SEQ"31;01m"
 
 # requires git > v.1.7.9
 
@@ -18,7 +22,11 @@ while read -r branch; do
   # git marks current branch with "* ", remove it
   clean_branch_name=${branch//\*\ /}
   description=`git config branch.$clean_branch_name.description`
-  printf "%-15s %s\n" "$branch" "$description"
+	if [ "${branch::1}" == "*" ]; then
+		printf "$COL_RED$branch$COL_RESET $description \n"
+	else
+		printf "  $branch $description\n"
+	fi  
 done <<< "$branches"
 
 # example output
