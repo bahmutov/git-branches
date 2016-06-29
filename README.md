@@ -3,55 +3,72 @@
 > List of local Git repository branches with their descriptions.
 
 [![semantic-release][semantic-image] ][semantic-url]
+[![NPM version][npm-badge]][npm-url]
 
 That's right: descriptions! This does not use anything custom, just
 shows the information available in any git repo > v1.7.9
 
-    git branch --edit-description
-    # opens editor, write something, save and exit
-    # or simply use
-    git config branch.master.description "description text"
-    git config branch.master.description
-    # shows description of branch master
+```bash
+$ git branch --edit-description
+; opens editor, write something, save and exit
+; or simply use
+$ git config branch.master.description "description text"
+$ git config branch.master.description
+; shows description of branch master
+```
 
 Use the [braches.sh](branches.sh) script to show all branches
 with their descriptions at once, for example, I have two branches
 
-    $ ./branches.sh
-    * master        this is master branch
-    one             this is simple branch for testing
+```bash
+$ git-branch-description
+* master        this is master branch
+one             this is simple branch for testing
+```
 
 This is same information as `git branch`, with descriptions in the
 second column.
+
+## Install
+
+```bash
+$ npm install git-br -g
+```
 
 ## git alias
 
 Alias git sub-command by:
 
-    $ git config --global alias.brs path/to/branches.sh
+```bash
+$ git config --global alias.brs !git-br
+```
 
 then we can use it like:
 
-    $ git brs
-    * master        this is master branch
-    one             this is simple branch for testing
+```bash
+$ git brs
+* master        this is master branch
+one             this is simple branch for testing
+```
 
 ## Adding to .bash_profile
 
 I found it convenient to add this feature as a function to my `.bash_profile`
 or `.alias` file
 
-    # .bash_profile
-    # list git branches with their descriptions
-    function branches() {
-        branch=""
-        branches=`git branch --list`
-        while read -r branch; do
-        clean_branch_name=${branch//\*\ /}
-        description=`git config branch.$clean_branch_name.description`
-        printf "%-15s %s\n" "$branch" "$description"
-        done <<< "$branches"
-    }
+```bash
+; .bash_profile
+; list git branches with their descriptions
+function branches() {
+    branch=""
+    branches=`git branch --list`
+    while read -r branch; do
+    clean_branch_name=${branch//\*\ /}
+    description=`git config branch.$clean_branch_name.description`
+    printf "%-15s %s\n" "$branch" "$description"
+    done <<< "$branches"
+}
+```
 
 Then anywhere in the shell I can use command `branches`
 
@@ -72,3 +89,5 @@ Support: if you find any problems with this module, email / tweet /
 
 [semantic-image]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
 [semantic-url]: https://github.com/semantic-release/semantic-release
+[npm-badge]: https://img.shields.io/npm/v/git-br.svg?style=flat
+[npm-url]: https://www.npmjs.com/package/git-br
