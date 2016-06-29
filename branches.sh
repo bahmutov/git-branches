@@ -1,11 +1,11 @@
 #!/bin/bash
 
-branch=""
-branches=`git branch --list`
-#color codes
-ESC_SEQ="\x1b["
-COL_RESET=$ESC_SEQ"39;49;00m"
-COL_RED=$ESC_SEQ"31;01m"
+if [[ "$@" =~ "--no-color" ]]
+then
+  branches=`git branch --list --no-color`
+else
+  branches=`git branch --list --color`
+fi
 
 # requires git > v.1.7.9
 
@@ -21,12 +21,14 @@ COL_RED=$ESC_SEQ"31;01m"
 while read -r branch; do
   # git marks current branch with "* ", remove it
   clean_branch_name=${branch//\*\ /}
+  # replace colors
+  clean_branch_name=`echo $clean_branch_name | tr -d '[:cntrl:]' | sed -E "s/\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"`
   description=`git config branch.$clean_branch_name.description`
 	if [ "${branch::1}" == "*" ]; then
-		printf "$COL_RED$branch$COL_RESET $description \n"
+		printf "$branch $description\n"
 	else
 		printf "  $branch $description\n"
-	fi  
+	fi
 done <<< "$branches"
 
 # example output

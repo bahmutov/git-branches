@@ -7,6 +7,8 @@ shows the information available in any git repo > v1.7.9
 
     git branch --edit-description
     # opens editor, write something, save and exit
+    # or simply use
+    git config branch.master.description "description text"
     git config branch.master.description
     # shows description of branch master
 
@@ -19,6 +21,18 @@ with their descriptions at once, for example, I have two branches
 
 This is same information as `git branch`, with descriptions in the
 second column.
+
+## git alias
+
+Alias git sub-command by:
+
+    $ git config --global alias.brs path/to/branches.sh
+
+then we can use it like:
+
+    $ git brs
+    * master        this is master branch
+    one             this is simple branch for testing
 
 ## Adding to .bash_profile
 
