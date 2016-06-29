@@ -1,6 +1,6 @@
 {
   "name": "git-br",
-  "description": "> List of local Git repository branches with their descriptions.",
+  "description": "List of local Git repository branches with their descriptions.",
   "version": "0.8.0",
   "repository": {
     "type": "git",
