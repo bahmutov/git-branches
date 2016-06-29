@@ -1,0 +1,18 @@
+sudo: false
+language: node_js
+cache:
+  directories:
+    - node_modules
+notifications:
+  email: false
+node_js:
+  - '4'
+before_install:
+  - npm i -g semantic-release
+before_script:
+  - npm prune
+after_success:
+  - semantic-release pre && semantic-release post
+branches:
+  except:
+    - "/^v\\d+\\.\\d+\\.\\d+$/"

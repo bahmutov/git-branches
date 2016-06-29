@@ -2,6 +2,8 @@
 
 > List of local Git repository branches with their descriptions.
 
+[![semantic-release][semantic-image] ][semantic-url]
+
 That's right: descriptions! This does not use anything custom, just
 shows the information available in any git repo > v1.7.9
 
@@ -59,7 +61,7 @@ Author: Gleb Bahmutov &copy; 2014
 
 * [@bahmutov](https://twitter.com/bahmutov)
 * [glebbahmutov.com](http://glebbahmutov.com)
-* [blog](http://bahmutov.calepin.co/)
+* [blog](http://glebbahmutov.com/blog)
 
 License: MIT - do anything with the code, but don't blame me if it does not work.
 
@@ -67,3 +69,6 @@ Spread the word: tweet, star on github, etc.
 
 Support: if you find any problems with this module, email / tweet /
 [open issue](https://github.com/bahmutov/git-branches/issues) on Github
+
+[semantic-image]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
+[semantic-url]: https://github.com/semantic-release/semantic-release
