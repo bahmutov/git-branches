@@ -40,13 +40,13 @@ $ npm install git-br -g
 Alias git sub-command by:
 
 ```bash
-$ git config --global alias.brs !git-br
+$ git config --global alias.br !git-br
 ```
 
 then we can use it like:
 
 ```bash
-$ git brs
+$ git br
 * master        this is master branch
 one             this is simple branch for testing
 ```
