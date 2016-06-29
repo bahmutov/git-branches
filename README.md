@@ -7,6 +7,8 @@ shows the information available in any git repo > v1.7.9
 
     git branch --edit-description
     # opens editor, write something, save and exit
+    # or simply use
+    git config branch.master.description "description text"
     git config branch.master.description
     # shows description of branch master
 
