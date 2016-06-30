@@ -11,21 +11,21 @@ describe('git-br', () => {
       'git checkout -b test-without-description',
       'git config branch.test-with-description.description "description text"',
       'git checkout -b test-delete-branch',
+      'git checkout master', // Switch to master branch for test delete branch.
     ]).then(() => done());
   });
 
   after(done => {
     exeq([
-      'git checkout master',
       'git branch -D test-with-description',
       'git branch -D test-without-description',
-      'git branch -D test-delete-branch',
     ]).then(() => done());
   });
 
   it('list branches with description', done => {
     child_process.exec('./branches.sh --no-color', function(err, stdout) {
       expect(err).to.eql(null);
+      expect(stdout).to.contain('* master \n');
       expect(stdout).to.contain('  test-with-description description text\n');
       expect(stdout).to.contain('  test-without-description \n');
       done();
@@ -33,11 +33,19 @@ describe('git-br', () => {
   });
 
   it('delete branches', done => {
-    child_process.exec('./branches.sh -D test-delete-branch', function(err, stdout) {
+    child_process.exec('./branches.sh -D test-delete-branch', (err, out) => {
       expect(err).to.eql(null);
-      expect(stdout).to.not.contain('* test-delete-branch \n');
-      expect(stdout).to.not.contain('  test-delete-branch \n');
-      done();
+      expect(out).to.contain('Deleted branch test-delete-branch ');
+
+      child_process.exec('./branches.sh --no-color', function(er, stdout) {
+        expect(er).to.eql(null);
+        expect(stdout).to.contain('* master \n');
+        expect(stdout).to.contain('  test-with-description description text\n');
+        expect(stdout).to.contain('  test-without-description \n');
+        expect(stdout).to.not.contain('  test-delete-branch \n');
+        done();
+      });
+
     });
   });
 
