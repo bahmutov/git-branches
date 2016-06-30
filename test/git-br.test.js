@@ -22,6 +22,7 @@ describe('git-br', () => {
 
   after(done => {
     exeq([
+      'git checkout master',
       'git branch -D test-with-description',
       'git branch -D test-without-description',
     ]).then(() => done());
