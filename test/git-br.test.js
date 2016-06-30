@@ -7,7 +7,7 @@ const expect = require('expect.js');
 describe('git-br', () => {
   beforeEach(done => {
     console.log('switching to master branch');
-    exeq(['git checkout master']).then(done).catch(console.error);
+    exeq(['git checkout master']).then(() => done()).catch(console.error);
   });
 
   before(done => {
@@ -30,8 +30,7 @@ describe('git-br', () => {
   it.only('list branches with description', done => {
     child_process.exec('./branches.sh --no-color', function(err, stdout) {
       expect(err).to.eql(null);
-      console.log(stdout);
-      expect(stdout).to.contain('* master \n');
+      expect(stdout).to.contain('* master ');
       expect(stdout).to.contain('  test-with-description description text\n');
       expect(stdout).to.contain('  test-without-description \n');
       done();
@@ -45,7 +44,7 @@ describe('git-br', () => {
 
       child_process.exec('./branches.sh --no-color', function(er, stdout) {
         expect(er).to.eql(null);
-        expect(stdout).to.contain('* master \n');
+        expect(stdout).to.contain('* master ');
         expect(stdout).to.contain('  test-with-description description text\n');
         expect(stdout).to.contain('  test-without-description \n');
         expect(stdout).to.not.contain('  test-delete-branch \n');
