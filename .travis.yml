@@ -8,12 +8,11 @@ notifications:
 node_js:
   - '4'
 before_install:
-  - npm i -g semantic-release
-  - npm i
-script:
-  - npm test
+  - npm i -g npm@^2.0.0
+before_script:
+  - npm prune
 after_success:
-  - semantic-release pre && semantic-release post
+  - npm run semantic-release
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"

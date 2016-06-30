@@ -1,7 +1,7 @@
 {
   "name": "git-br",
   "description": "List of local Git repository branches with their descriptions.",
-  "version": "1.0.0",
+  "version": "0.0.0-semantic-release",
   "repository": {
     "type": "git",
     "url": "https://github.com/bahmutov/git-branches.git"
@@ -10,12 +10,14 @@
     "git-br": "./branches.sh"
   },
   "scripts": {
-    "test": "istanbul cover _mocha -- --harmony --reporter spec --timeout 5000 --inline-diffs ./test/git-br.test.js"
+    "test": "istanbul cover _mocha -- --harmony --reporter spec --timeout 5000 --inline-diffs ./test/git-br.test.js",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "devDependencies": {
     "exeq": "^3.0.0",
     "expect.js": "^0.3.1",
     "istanbul": "^0.4.4",
-    "mocha": "^2.5.3"
+    "mocha": "^2.5.3",
+    "semantic-release": "^4.3.5"
   }
 }

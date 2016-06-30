@@ -4,6 +4,7 @@
 
 [![semantic-release][semantic-image] ][semantic-url]
 [![NPM version][npm-badge]][npm-url]
+[![semantic-release][semantic-image] ][semantic-url]
 
 That's right: descriptions! This does not use anything custom, just
 shows the information available in any git repo > v1.7.9
@@ -91,3 +92,5 @@ Support: if you find any problems with this module, email / tweet /
 [semantic-url]: https://github.com/semantic-release/semantic-release
 [npm-badge]: https://img.shields.io/npm/v/git-br.svg?style=flat
 [npm-url]: https://www.npmjs.com/package/git-br
+[semantic-image]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
+[semantic-url]: https://github.com/semantic-release/semantic-release
