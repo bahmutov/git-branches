@@ -22,9 +22,10 @@ describe('git-br', () => {
     ]).then(() => done());
   });
 
-  it('list branches with description', done => {
+  it.only('list branches with description', done => {
     child_process.exec('./branches.sh --no-color', function(err, stdout) {
       expect(err).to.eql(null);
+      console.log(stdout);
       expect(stdout).to.contain('* master \n');
       expect(stdout).to.contain('  test-with-description description text\n');
       expect(stdout).to.contain('  test-without-description \n');
