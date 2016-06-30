@@ -5,6 +5,10 @@ const child_process = require('child_process');
 const expect = require('expect.js');
 
 describe('git-br', () => {
+  beforeEach(done => {
+    exeq(['git checkout master']).then(done).catch(console.error);
+  });
+
   before(done => {
     exeq([
       'git checkout -b test-with-description',
