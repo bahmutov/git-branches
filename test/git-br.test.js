@@ -12,23 +12,23 @@ describe('git-br', () => {
 
   before(done => {
     exeq([
-      'git checkout -b test-with-description',
-      'git checkout -b test-without-description',
+      'git checkout -b test-with-description || true',
+      'git checkout -b test-without-description || true',
       'git config branch.test-with-description.description "description text"',
-      'git checkout -b test-delete-branch',
+      'git checkout -b test-delete-branch || true',
       'git checkout master', // Switch to master branch for test delete branch.
-    ]).then(() => done());
+    ]).then(() => done()).catch(console.error);
   });
 
   after(done => {
     exeq([
       'git checkout master',
-      'git branch -D test-with-description',
-      'git branch -D test-without-description',
-    ]).then(() => done());
+      'git branch -D test-with-description || true',
+      'git branch -D test-without-description || true',
+    ]).then(() => done()).catch(console.error);
   });
 
-  it.only('list branches with description', done => {
+  it('list branches with description', done => {
     child_process.exec('./branches.sh --no-color', function(err, stdout) {
       expect(err).to.eql(null);
       expect(stdout).to.contain('* master ');
