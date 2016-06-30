@@ -6,6 +6,7 @@ const expect = require('expect.js');
 
 describe('git-br', () => {
   beforeEach(done => {
+    console.log('switching to master branch');
     exeq(['git checkout master']).then(done).catch(console.error);
   });
 
