@@ -9,8 +9,9 @@ node_js:
   - '4'
 before_install:
   - npm i -g semantic-release
+  - npm i
 script:
-  - echo "There are no unit tests!"
+  - npm test
 after_success:
   - semantic-release pre && semantic-release post
 branches:
