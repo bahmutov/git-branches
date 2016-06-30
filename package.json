@@ -11,13 +11,25 @@
   },
   "scripts": {
     "test": "istanbul cover _mocha -- --harmony --reporter spec --timeout 5000 --inline-diffs ./test/git-br.test.js",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "commit": "commit-wizard"
   },
   "devDependencies": {
     "exeq": "^3.0.0",
     "expect.js": "^0.3.1",
     "istanbul": "^0.4.4",
     "mocha": "^2.5.3",
+    "pre-git": "3.10.0",
     "semantic-release": "^4.3.5"
+  },
+  "config": {
+    "pre-git": {
+      "commit-msg": "simple",
+      "pre-commit": ["npm test"],
+      "pre-push": [],
+      "post-commit": [],
+      "post-checkout": [],
+      "post-merge": []
+    }
   }
 }
