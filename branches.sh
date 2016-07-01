@@ -19,6 +19,9 @@ function listBranchWithDescription() {
     clean_branch_name=${branch//\*\ /}
     # replace colors
     clean_branch_name=`echo $clean_branch_name | tr -d '[:cntrl:]' | sed -E "s/\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"`
+    # replace symbolic-ref like `HEAD -> master`
+    clean_branch_name=`echo $clean_branch_name | sed -E "s/^.+ -> //g"`
+
     description=`git config branch.$clean_branch_name.description`
     if [ "${branch::1}" == "*" ]; then
       printf "$branch $description\n"

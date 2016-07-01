@@ -5,35 +5,53 @@ const child_process = require('child_process');
 const expect = require('expect.js');
 
 describe('git-br', () => {
+
+  let currentBranch;
+
   beforeEach(done => {
-    console.log('switching to master branch');
-    exeq(['git checkout master']).then(() => done()).catch(console.error);
+    exeq([`git checkout ${currentBranch}`]).then(() => done()).catch(console.error);
   });
 
   before(done => {
-    exeq([
-      'git checkout -b test-with-description || true',
-      'git checkout -b test-without-description || true',
-      'git config branch.test-with-description.description "description text"',
-      'git checkout -b test-delete-branch || true',
-      'git checkout master', // Switch to master branch for test delete branch.
-    ]).then(() => done()).catch(console.error);
+    child_process.exec('git symbolic-ref --short HEAD', (err, stdout) => {
+
+      currentBranch = stdout.trim();
+      if (!currentBranch) {
+        currentBranch = 'test-ci';
+        // travis-ci just checkout FETCH_HEAD without branch.
+        child_process.execSync(`git checkout -b ${currentBranch}`);
+      }
+
+      exeq([
+        'git checkout -b test-with-description',
+        'git checkout -b test-without-description',
+        'git config branch.test-with-description.description "description text"',
+        'git checkout -b test-delete-branch',
+        'git symbolic-ref refs/heads/test-symbolic-ref-with-description refs/heads/test-with-description',
+        'git symbolic-ref refs/heads/test-symbolic-ref-without-description refs/heads/test-without-description',
+        `git checkout ${currentBranch}`, // Switch to current branch for test delete branch.
+      ]).then(() => done()).catch(console.error);
+    });
   });
 
   after(done => {
     exeq([
-      'git checkout master',
-      'git branch -D test-with-description || true',
-      'git branch -D test-without-description || true',
+      `git checkout ${currentBranch}`,
+      'git branch -D test-with-description',
+      'git branch -D test-without-description',
+      'git symbolic-ref -d refs/heads/test-symbolic-ref-with-description',
+      'git symbolic-ref -d refs/heads/test-symbolic-ref-without-description',
     ]).then(() => done()).catch(console.error);
   });
 
   it('list branches with description', done => {
     child_process.exec('./branches.sh --no-color', function(err, stdout) {
       expect(err).to.eql(null);
-      expect(stdout).to.contain('* master ');
+      expect(stdout).to.contain(`* ${currentBranch} `);
       expect(stdout).to.contain('  test-with-description description text\n');
       expect(stdout).to.contain('  test-without-description \n');
+      expect(stdout).to.contain('  test-symbolic-ref-with-description -> test-with-description description text\n');
+      expect(stdout).to.contain('  test-symbolic-ref-without-description -> test-without-description \n');
       done();
     });
   });
@@ -45,9 +63,11 @@ describe('git-br', () => {
 
       child_process.exec('./branches.sh --no-color', function(er, stdout) {
         expect(er).to.eql(null);
-        expect(stdout).to.contain('* master ');
+        expect(stdout).to.contain(`* ${currentBranch} `);
         expect(stdout).to.contain('  test-with-description description text\n');
         expect(stdout).to.contain('  test-without-description \n');
+        expect(stdout).to.contain('  test-symbolic-ref-with-description -> test-with-description description text\n');
+        expect(stdout).to.contain('  test-symbolic-ref-without-description -> test-without-description \n');
         expect(stdout).to.not.contain('  test-delete-branch \n');
         done();
       });
