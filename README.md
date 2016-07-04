@@ -92,5 +92,5 @@ Support: if you find any problems with this module, email / tweet /
 [semantic-url]: https://github.com/semantic-release/semantic-release
 [npm-badge]: https://img.shields.io/npm/v/git-br.svg?style=flat
 [npm-url]: https://www.npmjs.com/package/git-br
-[git-branches-ci-image]: https://travis-ci.org/bahmutov/git-branches.png?branch=master
+[git-branches-ci-image]: https://travis-ci.org/bahmutov/git-branches.svg?branch=master
 [git-branches-ci-url]: https://travis-ci.org/bahmutov/git-branches
