@@ -18,7 +18,7 @@ $ git config branch.master.description
 ; shows description of branch master
 ```
 
-Use the [braches.sh](branches.sh) script to show all branches
+Use the [branches.sh](branches.sh) script to show all branches
 with their descriptions at once, for example, I have two branches
 
 ```bash
