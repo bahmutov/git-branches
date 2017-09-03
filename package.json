@@ -12,6 +12,8 @@
   "scripts": {
     "test": "istanbul cover _mocha -- --harmony --reporter spec --timeout 5000 --inline-diffs ./test/git-br.test.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "postinstall" : "git config --global alias.br '!git-br'",
+    "postuninstall" : "git config --global --unset alias.br",
     "commit": "commit-wizard"
   },
   "devDependencies": {
